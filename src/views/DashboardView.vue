@@ -27,7 +27,7 @@
             </li>
         </ul>
         <div class="space-y-4">
-            <div class="flex justify-end">
+            <div class="flex justify-end w-full mt-4">
                 <button @click="showAddCost = !showAddCost"
                     class="flex items-center justify-between bg-blue-100 text-blue-800 px-4 py-2 rounded shadow hover:bg-blue-200 transition">
                     <span>{{ showAddCost ? 'Hide' : 'Add Cost' }}</span>
