@@ -38,25 +38,19 @@
             </li>
         </ul>
 
-        <!-- Toast / Snackbar -->
-        <transition name="fade">
-            <div v-if="showToast"
-                class="fixed bottom-4 right-4 bg-gray-900 text-white text-sm rounded-lg px-4 py-3 shadow-lg">
-                {{ toastMessage }}
-            </div>
-        </transition>
     </DefaultLayout>
 </template>
 
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, inject } from 'vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useCostStore } from '@/stores/costStore'
 import { useCategories } from '@/composables/useCategories'
 
 const costStore = useCostStore()
 const { getCategoryName } = useCategories()
+const toast = inject('toast')
 
 const minAmount = computed({
     get: () => costStore.filters.minAmount,
@@ -70,19 +64,9 @@ const maxAmount = computed({
 
 const filteredCosts = computed(() => costStore.filteredCosts)
 
-const toastMessage = ref('')
-const showToast = ref(false)
-
 const removeCost = (costId) => {
     costStore.deleteCost(costId)
-    showToastMessage('Cost was successfully deleted')
+    toast.show('Cost was successfully deleted')
 }
 
-function showToastMessage(message) {
-    toastMessage.value = message
-    showToast.value = true
-    setTimeout(() => {
-        showToast.value = false
-    }, 3000)
-}
 </script>
